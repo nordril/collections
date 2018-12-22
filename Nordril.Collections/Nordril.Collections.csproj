@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Description>Specialized collections as well as extension methods for standard .NET-collections</Description>
+    <Company>Nordril Technologies</Company>
+    <Authors>Nordril Technologies</Authors>
+    <Copyright>Nordril Technologies</Copyright>
+    <PackageLicenseUrl>https://www.apache.org/licenses/LICENSE-2.0.html</PackageLicenseUrl>
+    <PackageIconUrl>https://nordrilnugeticons.blob.core.windows.net/nuget-icons/382bgwqc06gfdlhjgb6.png</PackageIconUrl>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\Users\H\source\repos\collections\Nordril.Collections\Nordril.Collections.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NodaTime" Version="2.4.2" />
+    <PackageReference Include="Nordril.Base" Version="1.0.1" />
+    <PackageReference Include="Nordril.Functional" Version="7.4.1" />
+    <PackageReference Include="Nordril.TypeToolkit" Version="4.0.0" />
+    <PackageReference Include="Sigil" Version="4.7.0" />
+  </ItemGroup>
+
+</Project>
