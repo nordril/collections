@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Nordril.HedgingEngine.Logic.Collections
+namespace Nordril.Collections
 {
     /// <summary>
     /// A dictionary-based, thread-safe cache which uses a least-recently-used (LRU) caching strategy for its keys.

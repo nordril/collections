@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Nordril.HedgingEngine.Logic.Collections
+namespace Nordril.Collections
 {
     /// <summary>
     /// A mutable store which has the same interface as a dictionary and which can be copied.

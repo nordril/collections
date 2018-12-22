@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Nordril.HedgingEngine.Logic.Collections
+namespace Nordril.Collections
 {
     /// <summary>
     /// Extension methods for <see cref="IList{T}"/>.

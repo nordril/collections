@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Nordril.HedgingEngine.Logic.Collections
+namespace Nordril.Collections
 {
     /// <summary>
     /// An abstract store which can be subclassed to obtain concrete stores.

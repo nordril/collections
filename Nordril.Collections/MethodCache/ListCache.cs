@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Nordril.HedgingEngine.Logic.Collections.MethodCache
+namespace Nordril.Collections.MethodCache
 {
     /// <summary>
     /// A cache of typed constructors for <see cref="List{T}"/>. This is useful if you have value-level types (<see cref="Type"/>) and dynamically want to call the <see cref="List{T}"/>-constructor with them as type argument.

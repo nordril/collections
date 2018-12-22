@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection.Emit;
 
-namespace Nordril.HedgingEngine.Logic.Collections.MethodCache
+namespace Nordril.Collections.MethodCache
 {
     /// <summary>
     /// A cache of typed constructors for <see cref="Result{T}"/>. This is useful if you have value-level types (<see cref="Type"/>) and dynamically want to call <see cref="Result.Ok{T}(T)"/>/<see cref="Result.WithErrors{T}(IEnumerable{Error}, ResultClass)"/> with them as type argument.

@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Nordril.HedgingEngine.Logic.Collections
+namespace Nordril.Collections
 {
     /// <summary>
     /// A bijection, i.e. a bidirectional directory.

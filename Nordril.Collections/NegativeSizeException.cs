@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Nordril.HedgingEngine.Logic.Collections
+namespace Nordril.Collections
 {
     /// <summary>
     /// Indicates that an invalid, negative size was passed as a parameter into a container.

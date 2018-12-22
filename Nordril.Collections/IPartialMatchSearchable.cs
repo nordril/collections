@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Nordril.HedgingEngine.Logic.Collections
+namespace Nordril.Collections
 {
     /// <summary>
     /// A data structure that supports search based on partial queries. A partial query is one which only specifies a subset of the data structure's key to be a certain value.

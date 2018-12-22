@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Nordril.HedgingEngine.Logic.Collections
+namespace Nordril.Collections
 {
     /// <summary>
     /// Indicates that a string-key was already present when an attempt was made to

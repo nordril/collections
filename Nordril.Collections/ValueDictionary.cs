@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Nordril.HedgingEngine.Logic.Collections
+namespace Nordril.Collections
 {
     /// <summary>
     /// A wrapper around an arbitrary <see cref="IDictionary{TKey, TValue}"/> which determines equality based on the contained keys and values instead of by reference. Two <see cref="ValueDictionary{TKey, TValue}"/>-object are equal if they contain the same set of keys and, for every contained key, <see cref="object.Equals(object)"/> of the corresponding values returns true.

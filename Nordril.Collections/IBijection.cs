@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Nordril.HedgingEngine.Logic.Collections
+namespace Nordril.Collections
 {
     /// <summary>
     /// A finite, 1:1 mapping between values.
