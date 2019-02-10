@@ -6,3 +6,5 @@
 /Nordril.Collections/bin/Debug
 /Nordril.Collections/obj
 /Nordril.Collections/bin/Release
+/Nordril.Collections.Tests/bin/Release/netcoreapp2.2
+/Nordril.Collections.Tests/obj

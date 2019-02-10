@@ -8,13 +8,29 @@ using System.Linq;
 namespace Nordril.Collections.MethodCache
 {
     /// <summary>
-    /// A cache of typed constructors for <see cref="List{T}"/>. This is useful if you have value-level types (<see cref="Type"/>) and dynamically want to call the <see cref="List{T}"/>-constructor with them as type argument.
-    /// This class uses dynamic method compilation to provide high-performance access to the constructor of <see cref="List{T}"/>, avoiding the high, repeated runtime cost of reflection.
+    /// A cache of typed constructors for <see cref="FuncList{T}"/>. This is useful if you have value-level types (<see cref="Type"/>) and dynamically want to call the <see cref="FuncList{T}"/>-constructor with them as type argument.
+    /// This class uses dynamic method compilation to provide high-performance access to the constructor of <see cref="FuncList{T}"/>, avoiding the high, repeated runtime cost of reflection.
     /// </summary>
-    public class ListCache : DictionaryCache<Type, Func<IEnumerable<object>, object>>
+    public class ListCache : DictionaryBasedCache<Type, Func<IEnumerable<object>, object>>
     {
         private static readonly Func<Type, Func<IEnumerable<object>, object>> makeCreateMethod = t =>
         {
+            /*
+             * Generated code:
+             * 
+             * FuncList<T> CreateDynamic(IEnumerable<object> xs)
+             * {
+             *    List<T> list = new List<T>();
+             *    
+             *    foreach (var x in xs)
+             *    {
+             *       list.Add((T)x);
+             *    }
+             *    
+             *    return list;
+             * }
+             */
+
             var enumType = typeof(IEnumerable<>).MakeGenericType(t);
             var flType = typeof(FuncList<>).MakeGenericType(t);
 

@@ -8,10 +8,10 @@ namespace Nordril.Collections
     /// </summary>
     /// <typeparam name="TKey"></typeparam>
     /// <typeparam name="TValue"></typeparam>
-    public interface IDictionaryCache<TKey, TValue> : IReadOnlyDictionary<TKey, TValue>
+    public interface IDictionaryBasedCache<TKey, TValue> : IReadOnlyDictionary<TKey, TValue>
     {
         /// <summary>
-        /// Sets the maximum cache size. No more entries than <paramref name="size"/> will be stored. If the <see cref="IDictionaryCache{TKey, TValue}"/> contains more than <paramref name="size"/> elements at the time of this call, the oldest elements will be purged first, until the following holds:
+        /// Sets the maximum cache size. No more entries than <paramref name="size"/> will be stored. If the <see cref="IDictionaryBasedCache{TKey, TValue}"/> contains more than <paramref name="size"/> elements at the time of this call, the oldest elements will be purged first, until the following holds:
         /// <code>
         ///    this.Count == size
         /// </code>

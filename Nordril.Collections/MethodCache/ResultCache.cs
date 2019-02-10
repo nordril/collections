@@ -9,10 +9,20 @@ namespace Nordril.Collections.MethodCache
     /// A cache of typed constructors for <see cref="Result{T}"/>. This is useful if you have value-level types (<see cref="Type"/>) and dynamically want to call <see cref="Result.Ok{T}(T)"/>/<see cref="Result.WithErrors{T}(IEnumerable{Error}, ResultClass)"/> with them as type argument.
     /// This class uses dynamic method compilation to provide high-performance access to the constructors of <see cref="Result"/>, avoiding the high, repeated runtime cost of reflection.
     /// </summary>
-    public class ResultCache : DictionaryCache<Type, (Func<IEnumerable<Error>, ResultClass, object>, Func<object, object>)>
+    public class ResultCache : DictionaryBasedCache<Type, (Func<IEnumerable<Error>, ResultClass, object>, Func<object, object>)>
     {
         private static readonly Func<Type, Func<IEnumerable<Error>, ResultClass, object>> makeWithErrorsMethod = t =>
         {
+            /*
+             * Generated code:
+             * Type parameters in brackets denote template parameters.
+             * 
+             * Result<T> WithErrorsDynamic[T](IEnumerable<Error> xs, ResultClass rc)
+             * {
+             *    return Result.WithErrors<T>(xs, rc);
+             * }
+             */
+
             var m = new DynamicMethod("WithErrorsDynamic", typeof(object), new Type[] { typeof(object), typeof(ResultClass) });
 
             var generator = m.GetILGenerator();
@@ -30,6 +40,16 @@ namespace Nordril.Collections.MethodCache
 
         private static readonly Func<Type, Func<object, object>> makeOkMethod = t =>
         {
+            /*
+             * Generated code:
+             * Type parameters in brackets denote template parameters.
+             * 
+             * Result<T> OkDynamic[T](T x)
+             * {
+             *    return Result.Ok<T>(x);
+             * }
+             */
+
             var m = new DynamicMethod("OkDynamic", typeof(object), new Type[] { typeof(object) });
 
             var generator = m.GetILGenerator();

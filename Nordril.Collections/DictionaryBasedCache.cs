@@ -33,7 +33,7 @@ namespace Nordril.Collections
     /// </summary>
     /// <typeparam name="TKey">The type of the keys.</typeparam>
     /// <typeparam name="TValue">The values to store.</typeparam>
-    public class DictionaryCache<TKey, TValue> : IDictionaryCache<TKey, TValue>
+    public class DictionaryBasedCache<TKey, TValue> : IDictionaryBasedCache<TKey, TValue>
     {
         private readonly ConcurrentDictionary<TKey, TValue> dict;
         private readonly Dictionary<TKey, int> cachePositions;
@@ -42,10 +42,10 @@ namespace Nordril.Collections
         private int cacheSize = 0;
 
         /// <summary>
-        /// Creates a new <see cref="DictionaryCache{TKey, TValue}"/> with the specified cache size.
+        /// Creates a new <see cref="DictionaryBasedCache{TKey, TValue}"/> with the specified cache size.
         /// </summary>
         /// <param name="cacheSize">The cache size.</param>
-        public DictionaryCache(int cacheSize)
+        public DictionaryBasedCache(int cacheSize)
         {
             dict = new ConcurrentDictionary<TKey, TValue>();
             cachePositions = new Dictionary<TKey, int>(cacheSize);
@@ -59,7 +59,7 @@ namespace Nordril.Collections
             lock (cacheLock)
             {
                 if (size < 0)
-                    throw new NegativeSizeException($"Tried to set a negative cache-size on {nameof(DictionaryCache<TKey, TValue>)}.");
+                    throw new NegativeSizeException($"Tried to set a negative cache-size on {nameof(DictionaryBasedCache<TKey, TValue>)}.");
 
                 //Case 1: the cache is to be enlarged.
                 //Functionally, we could do nothing, but we ensure larger capacities so that we only have to re-size once.

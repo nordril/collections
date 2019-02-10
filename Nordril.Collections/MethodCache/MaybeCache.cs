@@ -8,10 +8,20 @@ namespace Nordril.Collections.MethodCache
     /// A cache of typed constructors for <see cref="Maybe{T}"/>. This is useful if you have value-level types (<see cref="Type"/>) and dynamically want to call <see cref="Maybe.Nothing{T}"/>/<see cref="Maybe.Just{T}(T)"/> with them as type argument.
     /// This class uses dynamic method compilation to provide high-performance access to the constructors of <see cref="Maybe"/>, avoiding the high, repeated runtime cost of reflection.
     /// </summary>
-    public class MaybeCache : DictionaryCache<Type, (Func<object>, Func<object, object>)>
+    public class MaybeCache : DictionaryBasedCache<Type, (Func<object>, Func<object, object>)>
     {
         private static readonly Func<Type, Func<object>> makeNothingMethod = t =>
         {
+            /*
+             * Generated code:
+             * Type parameters in brackets denote template parameters.
+             * 
+             * Maybe<T> JustDynamic[T](object x)
+             * {
+             *    return Maybe.Just<T>((T)x);
+             * }
+             */
+
             var m = new DynamicMethod("NothingDynamic", typeof(object), new Type[0]);
 
             var generator = m.GetILGenerator();
@@ -28,6 +38,16 @@ namespace Nordril.Collections.MethodCache
 
         private static readonly Func<Type, Func<object, object>> makeJustMethod = t =>
         {
+            /*
+             * Generated code:
+             * Type parameters in brackets denote template parameters.
+             * 
+             * Maybe<T> NothingDynamic[T]()
+             * {
+             *    return Maybe.Nothing<T>((T)x);
+             * }
+             */
+
             var m = new DynamicMethod("JustDynamic", typeof(object), new Type[] { typeof(object) });
 
             var generator = m.GetILGenerator();
