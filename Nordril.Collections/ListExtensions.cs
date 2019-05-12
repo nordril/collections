@@ -10,7 +10,7 @@ namespace Nordril.Collections
     public static class ListExtensions
     {
         /// <summary>
-        /// Performs a lookup of an element using binary search. The element's index, if present, is returned.
+        /// Performs a lookup of an element using binary search. The element's index, if present, is returned. The behavior is undefined if the list is not sorted.
         /// </summary>
         /// <typeparam name="TOuter">The type of elements in the list.</typeparam>
         /// <typeparam name="T">The type of the elements by which to look up.</typeparam>
@@ -22,7 +22,7 @@ namespace Nordril.Collections
             => BinarySearchIndexOfApproximate(xs, elem, comparer, 0, selector);
 
         /// <summary>
-        /// Performs a lookup of an element using binary search and the <see cref="IComparable{T}"/>-implementation to guide it.
+        /// Performs a lookup of an element using binary search and the <see cref="IComparable{T}"/>-implementation to guide it. The behavior is undefined if the list is not sorted.
         /// </summary>
         /// <typeparam name="TOuter">The type of elements in the list.</typeparam>
         /// <typeparam name="T">The type of the elements by which to look up.</typeparam>
@@ -33,7 +33,7 @@ namespace Nordril.Collections
             => BinarySearchIndexOf(xs, elem, (x, y) => x.CompareTo(y), selector);
 
         /// <summary>
-        /// Performs a lookup of an element using binary search. The element's index, if present, is returned. If the element isn't found, <paramref name="roundingDirection"/> can be used to return its nearest left or right closest match.
+        /// Performs a lookup of an element using binary search. The element's index, if present, is returned. If the element isn't found, <paramref name="roundingDirection"/> can be used to return its nearest left or right closest match. The behavior is undefined if the list is not sorted.
         /// </summary>
         /// <typeparam name="TOuter">The type of elements in the list.</typeparam>
         /// <typeparam name="T">The type of the elements by which to look up.</typeparam>
@@ -67,8 +67,8 @@ namespace Nordril.Collections
                         //Rounding allowed: we try to round up or down, and if the result is still a valid index, we return that.
                         else
                         {
-                            var index = roundingDirection < 0 ? (minIndex + maxIndex) / 2 : (minIndex + maxIndex + 1) / 2;
-                            return Maybe.JustIf(index >= 0 && index <= xs.Count, () => index);
+                            var index = roundingDirection < 0 ? maxIndex : minIndex;
+                            return Maybe.JustIf(index >= 0 && index < xs.Count, () => index);
                         }
                     }
                     //Go into the lower or upper half of the list

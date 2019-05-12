@@ -4,6 +4,85 @@
         <name>Nordril.Collections</name>
     </assembly>
     <members>
+        <member name="T:Nordril.Collections.AbstractBijectiveStore`2">
+            <summary>
+            An abstract store which can be subclassed to obtain concrete stores.
+            A bijective stroe is a bijection with an immutable/mutable-split: in its immutable version, it can only be read from, and one can make a mutable deep copy. This mutable deep copy can then be freely modified without affecting the original.
+            </summary>
+            <typeparam name="TKey">The key of the stored elements.</typeparam>
+            <typeparam name="TValue">The elements which are stored.</typeparam>
+        </member>
+        <member name="P:Nordril.Collections.AbstractBijectiveStore`2.Store">
+            <summary>
+            The underlying dictionary of values.
+            </summary>
+        </member>
+        <member name="P:Nordril.Collections.AbstractBijectiveStore`2.Copier">
+            <summary>
+            The copying-function for the store's values, in case a copy of the store is requested.
+            </summary>
+        </member>
+        <member name="M:Nordril.Collections.AbstractBijectiveStore`2.#ctor(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{`0,`1}},System.Func{`1,`1})">
+            <summary>
+            Creates a new store with the supplied values <paramref name="values"/>. The values are copied via <paramref name="copier"/>.
+            </summary>
+            <param name="values">The values to put into the store.</param>
+            <param name="copier">The copier which will be applied to every value, to store a copy in this store.</param>
+        </member>
+        <member name="M:Nordril.Collections.AbstractBijectiveStore`2.#ctor(System.Collections.Generic.IEnumerable{System.ValueTuple{`0,`1}},System.Func{`1,`1})">
+            <summary>
+            Creates a new store with the supplied values <paramref name="values"/>. The values are copied via <paramref name="copier"/>.
+            </summary>
+            <param name="values">The values to put into the store.</param>
+            <param name="copier">The copier which will be applied to every value, to store a copy in this store.</param>
+        </member>
+        <member name="M:Nordril.Collections.AbstractBijectiveStore`2.ContainsKey(`0)">
+            <inheritdoc />
+        </member>
+        <member name="M:Nordril.Collections.AbstractBijectiveStore`2.TryGetValue(`0,`1@)">
+            <inheritdoc />
+        </member>
+        <member name="P:Nordril.Collections.AbstractBijectiveStore`2.Item(`0)">
+            <inheritdoc />
+        </member>
+        <member name="P:Nordril.Collections.AbstractBijectiveStore`2.Keys">
+            <inheritdoc />
+        </member>
+        <member name="P:Nordril.Collections.AbstractBijectiveStore`2.Values">
+            <inheritdoc />
+        </member>
+        <member name="P:Nordril.Collections.AbstractBijectiveStore`2.Count">
+            <inheritdoc />
+        </member>
+        <member name="P:Nordril.Collections.AbstractBijectiveStore`2.Item(`1,Nordril.Functional.Data.TagRight)">
+            <inheritdoc />
+        </member>
+        <member name="M:Nordril.Collections.AbstractBijectiveStore`2.GetEnumerator">
+            <inheritdoc />
+        </member>
+        <member name="M:Nordril.Collections.AbstractBijectiveStore`2.System#Collections#IEnumerable#GetEnumerator">
+            <inheritdoc />
+        </member>
+        <member name="M:Nordril.Collections.AbstractBijectiveStore`2.Add(`0,`1)">
+            <inheritdoc />
+        </member>
+        <member name="M:Nordril.Collections.AbstractBijectiveStore`2.AddMany(System.Collections.Generic.IEnumerable{System.ValueTuple{`0,`1}})">
+            <inheritdoc />
+        </member>
+        <member name="M:Nordril.Collections.AbstractBijectiveStore`2.CopyMutable">
+            <summary>
+            Creates a deep copy of the store.
+            </summary>
+            <remarks>
+            Implementors can use the protected constructor of <see cref="T:Nordril.Collections.AbstractStore`2"/> to have the underlying dictionary copied.
+            </remarks>
+        </member>
+        <member name="M:Nordril.Collections.AbstractBijectiveStore`2.ContainsRightKey(`1)">
+            <inheritdoc />
+        </member>
+        <member name="M:Nordril.Collections.AbstractBijectiveStore`2.TryGetLeftValue(`1,`0@)">
+            <inheritdoc />
+        </member>
         <member name="T:Nordril.Collections.AbstractStore`2">
             <summary>
             An abstract store which can be subclassed to obtain concrete stores.
@@ -87,6 +166,23 @@
         <member name="P:Nordril.Collections.Bijection`2.Item(`1,Nordril.Functional.Data.TagRight)">
             <inheritdoc />
         </member>
+        <member name="P:Nordril.Collections.Bijection`2.System#Collections#Generic#IReadOnlyDictionary{TLeft,TRight}#Keys">
+            <inheritdoc />
+        </member>
+        <member name="P:Nordril.Collections.Bijection`2.System#Collections#Generic#IReadOnlyDictionary{TLeft,TRight}#Values">
+            <inheritdoc />
+        </member>
+        <member name="M:Nordril.Collections.Bijection`2.#ctor">
+            <summary>
+            Creates a new, empty instance.
+            </summary>
+        </member>
+        <member name="M:Nordril.Collections.Bijection`2.#ctor(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{`0,`1}})">
+            <summary>
+            Creates a new instance from a collection of key-value-pairs.
+            </summary>
+            <param name="xs">The collection of key-value-pairs.</param>
+        </member>
         <member name="M:Nordril.Collections.Bijection`2.ContainsRightKey(`1)">
             <inheritdoc />
         </member>
@@ -141,7 +237,7 @@
         <member name="M:Nordril.Collections.Bijection`2.System#Collections#IEnumerable#GetEnumerator">
             <inheritdoc />
         </member>
-        <member name="T:Nordril.Collections.DictionaryCache`2">
+        <member name="T:Nordril.Collections.DictionaryBasedCache`2">
             <summary>
             A thread-safe dictionary-based cache with
             <list type="table">
@@ -171,40 +267,40 @@
             <typeparam name="TKey">The type of the keys.</typeparam>
             <typeparam name="TValue">The values to store.</typeparam>
         </member>
-        <member name="M:Nordril.Collections.DictionaryCache`2.#ctor(System.Int32)">
+        <member name="M:Nordril.Collections.DictionaryBasedCache`2.#ctor(System.Int32)">
             <summary>
-            Creates a new <see cref="T:Nordril.Collections.DictionaryCache`2"/> with the specified cache size.
+            Creates a new <see cref="T:Nordril.Collections.DictionaryBasedCache`2"/> with the specified cache size.
             </summary>
             <param name="cacheSize">The cache size.</param>
         </member>
-        <member name="M:Nordril.Collections.DictionaryCache`2.SetCacheSize(System.Int32)">
+        <member name="M:Nordril.Collections.DictionaryBasedCache`2.SetCacheSize(System.Int32)">
             <inheritdoc />
         </member>
-        <member name="M:Nordril.Collections.DictionaryCache`2.RetrieveOrCache(`0,System.Func{`1},`1@)">
+        <member name="M:Nordril.Collections.DictionaryBasedCache`2.RetrieveOrCache(`0,System.Func{`1},`1@)">
             <inheritdoc />
         </member>
-        <member name="M:Nordril.Collections.DictionaryCache`2.ContainsKey(`0)">
+        <member name="M:Nordril.Collections.DictionaryBasedCache`2.ContainsKey(`0)">
             <inheritdoc />
         </member>
-        <member name="M:Nordril.Collections.DictionaryCache`2.TryGetValue(`0,`1@)">
+        <member name="M:Nordril.Collections.DictionaryBasedCache`2.TryGetValue(`0,`1@)">
             <inheritdoc />
         </member>
-        <member name="P:Nordril.Collections.DictionaryCache`2.Item(`0)">
+        <member name="P:Nordril.Collections.DictionaryBasedCache`2.Item(`0)">
             <inheritdoc />
         </member>
-        <member name="P:Nordril.Collections.DictionaryCache`2.Keys">
+        <member name="P:Nordril.Collections.DictionaryBasedCache`2.Keys">
             <inheritdoc />
         </member>
-        <member name="P:Nordril.Collections.DictionaryCache`2.Values">
+        <member name="P:Nordril.Collections.DictionaryBasedCache`2.Values">
             <inheritdoc />
         </member>
-        <member name="P:Nordril.Collections.DictionaryCache`2.Count">
+        <member name="P:Nordril.Collections.DictionaryBasedCache`2.Count">
             <inheritdoc />
         </member>
-        <member name="M:Nordril.Collections.DictionaryCache`2.GetEnumerator">
+        <member name="M:Nordril.Collections.DictionaryBasedCache`2.GetEnumerator">
             <inheritdoc />
         </member>
-        <member name="M:Nordril.Collections.DictionaryCache`2.System#Collections#IEnumerable#GetEnumerator">
+        <member name="M:Nordril.Collections.DictionaryBasedCache`2.System#Collections#IEnumerable#GetEnumerator">
             <inheritdoc />
         </member>
         <member name="T:Nordril.Collections.DictionaryExtensions">
@@ -302,37 +398,45 @@
             <exception cref="T:System.Collections.Generic.KeyNotFoundException">The property is retrieved and the key is not found.</exception>
             <exception cref="T:Nordril.Collections.KeyAlreadyPresentException">The property was set, but the value was already associated with another right value.</exception>
         </member>
-        <member name="M:Nordril.Collections.IBijection`2.ContainsRightKey(`1)">
-            <summary>
-            Determines whether the <see cref="T:System.Collections.Generic.IDictionary`2"/> contains an element
-            with the specified right key. This is the efficient version of <see cref="M:System.Collections.Generic.ICollection`1.Contains(`0)"/>
-            which uses indexing.
-            </summary>
-            <param name="key">The key to locate.</param>
-        </member>
         <member name="M:Nordril.Collections.IBijection`2.RemoveRight(`1)">
             <summary>
             Removes the element with the specified right key from the <see cref="T:System.Collections.Generic.IDictionary`2"/>.
             </summary>
             <param name="key">The key of the element to remove.</param>
         </member>
-        <member name="M:Nordril.Collections.IBijection`2.TryGetLeftValue(`1,`0@)">
+        <member name="T:Nordril.Collections.IBijectiveStore`2">
             <summary>
-            Gets the left key associated with the specified right key.
+            A store based on a bijection.
             </summary>
-            <param name="key">The right key whose associated left key to get.</param>
-            <param name="value">The left key, if present; otherwise, the type's default value is returned.</param>
+            <typeparam name="TKey">The type of the key.</typeparam>
+            <typeparam name="TValue">The type of the value.</typeparam>
         </member>
-        <member name="T:Nordril.Collections.IDictionaryCache`2">
+        <member name="M:Nordril.Collections.IBijectiveStore`2.Add(`0,`1)">
+            <summary>
+            Adds a new entry to the store.
+            </summary>
+            <param name="key">The key of the new element.</param>
+            <param name="value">The value of the new element.</param>
+            <exception cref="T:Nordril.Collections.KeyAlreadyPresentException">If either key already exists.</exception>
+        </member>
+        <member name="M:Nordril.Collections.IBijectiveStore`2.AddMany(System.Collections.Generic.IEnumerable{System.ValueTuple{`0,`1}})">
+            <summary>
+            Adds many entries to the store at once. Depending on the implemention, this
+            operation may be more efficient than repeatedly calling <see cref="M:Nordril.Collections.IBijectiveStore`2.Add(`0,`1)"/>.
+            </summary>
+            <param name="values">The elements to add.</param>
+            <exception cref="T:Nordril.Collections.KeyAlreadyPresentException">If either key already exists.</exception>
+        </member>
+        <member name="T:Nordril.Collections.IDictionaryBasedCache`2">
             <summary>
             A dictionary-based, thread-safe cache which uses a least-recently-used (LRU) caching strategy for its keys.
             </summary>
             <typeparam name="TKey"></typeparam>
             <typeparam name="TValue"></typeparam>
         </member>
-        <member name="M:Nordril.Collections.IDictionaryCache`2.SetCacheSize(System.Int32)">
+        <member name="M:Nordril.Collections.IDictionaryBasedCache`2.SetCacheSize(System.Int32)">
             <summary>
-            Sets the maximum cache size. No more entries than <paramref name="size"/> will be stored. If the <see cref="T:Nordril.Collections.IDictionaryCache`2"/> contains more than <paramref name="size"/> elements at the time of this call, the oldest elements will be purged first, until the following holds:
+            Sets the maximum cache size. No more entries than <paramref name="size"/> will be stored. If the <see cref="T:Nordril.Collections.IDictionaryBasedCache`2"/> contains more than <paramref name="size"/> elements at the time of this call, the oldest elements will be purged first, until the following holds:
             <code>
                this.Count == size
             </code>
@@ -340,7 +444,7 @@
             <param name="size">The maximum size of the cahce.</param>
             <exception cref="T:Nordril.Collections.NegativeSizeException">If <paramref name="size"/> is negative.</exception>
         </member>
-        <member name="M:Nordril.Collections.IDictionaryCache`2.RetrieveOrCache(`0,System.Func{`1},`1@)">
+        <member name="M:Nordril.Collections.IDictionaryBasedCache`2.RetrieveOrCache(`0,System.Func{`1},`1@)">
             <summary>
             Either retrieves the cached value for a key or registers a new value <paramref name="newValue"/> and returns that.
             </summary>
@@ -394,6 +498,57 @@
             See <see cref="M:Nordril.Collections.IPartialMatchSearchable`2.GetValueByPartialQuery(System.Collections.Generic.IDictionary{System.Int32,`0})"/>.
             </summary>
             <param name="query">The query to match against the structure.</param>
+        </member>
+        <member name="T:Nordril.Collections.IReadOnlyBijection`2">
+            <summary>
+            A finite, immutable, 1:1 mapping between values.
+            </summary>
+            <typeparam name="TLeft">The left value.</typeparam>
+            <typeparam name="TRight">The right value.</typeparam>
+        </member>
+        <member name="P:Nordril.Collections.IReadOnlyBijection`2.Item(`0)">
+            <summary>
+            Gets or sets the right key associated with the left key.
+            </summary>
+            <param name="key">The right key associated with the left key.</param>
+            <exception cref="T:System.ArgumentNullException">key is null.</exception>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException">The property is retrieved and the key is not found.</exception>
+        </member>
+        <member name="P:Nordril.Collections.IReadOnlyBijection`2.Item(`1,Nordril.Functional.Data.TagRight)">
+            <summary>
+            Gets or sets the left key associated with the right key.
+            </summary>
+            <param name="key">The right key associated with the left key.</param>
+            <param name="tag">A type-level tag to resolve ambiguity with indexer of <see cref="T:System.Collections.Generic.IDictionary`2"/>.</param>
+            <exception cref="T:System.ArgumentNullException">key is null.</exception>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException">The property is retrieved and the key is not found.</exception>
+        </member>
+        <member name="M:Nordril.Collections.IReadOnlyBijection`2.ContainsRightKey(`1)">
+            <summary>
+            Determines whether the <see cref="T:System.Collections.Generic.IDictionary`2"/> contains an element
+            with the specified right key. This is the efficient version of <see cref="M:System.Collections.Generic.ICollection`1.Contains(`0)"/>
+            which uses indexing.
+            </summary>
+            <param name="key">The key to locate.</param>
+        </member>
+        <member name="M:Nordril.Collections.IReadOnlyBijection`2.TryGetLeftValue(`1,`0@)">
+            <summary>
+            Gets the left key associated with the specified right key.
+            </summary>
+            <param name="key">The right key whose associated left key to get.</param>
+            <param name="value">The left key, if present; otherwise, the type's default value is returned.</param>
+        </member>
+        <member name="T:Nordril.Collections.IReadOnlyBijectiveStore`2">
+            <summary>
+            A read-only store which has the same interface as a bijection, but which can create mutable copies of itself.
+            </summary>
+            <typeparam name="TKey">The key of the stored elements.</typeparam>
+            <typeparam name="TValue">The elements which are stored.</typeparam>
+        </member>
+        <member name="M:Nordril.Collections.IReadOnlyBijectiveStore`2.CopyMutable">
+            <summary>
+            Creates a mutable copy of this store.
+            </summary>
         </member>
         <member name="T:Nordril.Collections.IReadOnlyStore`2">
             <summary>
@@ -493,7 +648,7 @@
         </member>
         <member name="M:Nordril.Collections.ListExtensions.BinarySearchIndexOf``2(System.Collections.Generic.IList{``0},``1,System.Func{``1,``1,System.Int32},System.Func{``0,``1})">
             <summary>
-            Performs a lookup of an element using binary search. The element's index, if present, is returned.
+            Performs a lookup of an element using binary search. The element's index, if present, is returned. The behavior is undefined if the list is not sorted.
             </summary>
             <typeparam name="TOuter">The type of elements in the list.</typeparam>
             <typeparam name="T">The type of the elements by which to look up.</typeparam>
@@ -504,7 +659,7 @@
         </member>
         <member name="M:Nordril.Collections.ListExtensions.BinarySearchIndexOf``2(System.Collections.Generic.IList{``0},``1,System.Func{``0,``1})">
             <summary>
-            Performs a lookup of an element using binary search and the <see cref="T:System.IComparable`1"/>-implementation to guide it.
+            Performs a lookup of an element using binary search and the <see cref="T:System.IComparable`1"/>-implementation to guide it. The behavior is undefined if the list is not sorted.
             </summary>
             <typeparam name="TOuter">The type of elements in the list.</typeparam>
             <typeparam name="T">The type of the elements by which to look up.</typeparam>
@@ -514,7 +669,7 @@
         </member>
         <member name="M:Nordril.Collections.ListExtensions.BinarySearchIndexOfApproximate``2(System.Collections.Generic.IList{``0},``1,System.Func{``1,``1,System.Int32},System.Int32,System.Func{``0,``1})">
             <summary>
-            Performs a lookup of an element using binary search. The element's index, if present, is returned. If the element isn't found, <paramref name="roundingDirection"/> can be used to return its nearest left or right closest match.
+            Performs a lookup of an element using binary search. The element's index, if present, is returned. If the element isn't found, <paramref name="roundingDirection"/> can be used to return its nearest left or right closest match. The behavior is undefined if the list is not sorted.
             </summary>
             <typeparam name="TOuter">The type of elements in the list.</typeparam>
             <typeparam name="T">The type of the elements by which to look up.</typeparam>
@@ -535,10 +690,38 @@
             <param name="roundingDirection">The rounding direction. 0 means "no rounding allowed". Positive values mean "if there's no exact match, get the next larger element, if present" and negative values mean "if there's no exact match, get the next smaller value, if present".</param>
             <param name="selector">The selector to apply to the elements. If null, no selector is used.</param>
         </member>
+        <member name="T:Nordril.Collections.MethodCache.DictionaryCache">
+            <summary>
+            A cache of typed constructors for <see cref="T:System.Collections.Generic.Dictionary`2"/>. This is useful if you have value-level types (<see cref="T:System.Type"/>) and dynamically want to call the <see cref="T:System.Collections.Generic.Dictionary`2"/>-constructor with them as type argument.
+            This class uses dynamic method compilation to provide high-performance access to the constructor of <see cref="T:System.Collections.Generic.Dictionary`2"/>, avoiding the high, repeated runtime cost of reflection.
+            </summary>
+        </member>
+        <member name="M:Nordril.Collections.MethodCache.DictionaryCache.#ctor(System.Int32)">
+            <summary>
+            Creates a new cache.
+            </summary>
+            <param name="cacheSize">The maximum cache size.</param>
+        </member>
+        <member name="M:Nordril.Collections.MethodCache.DictionaryCache.RetrieveOrCacheCreate``2(System.Collections.Generic.IEnumerable{System.ValueTuple{``0,``1}},System.String)">
+            <summary>
+            Retrieves <see cref="T:System.Collections.Generic.Dictionary`2"/>-constructor-method and caches both both methods for type <typeparamref name="T"/>.
+            </summary>
+            <param name="elements">The list of elements.</param>
+            <typeparam name="TKey">The type of the keys.</typeparam>
+            <typeparam name="TValue">The type of the values.</typeparam>
+        </member>
+        <member name="M:Nordril.Collections.MethodCache.DictionaryCache.RetrieveOrCacheCreate(System.Type,System.Type,System.Collections.Generic.IEnumerable{System.ValueTuple{System.Object,System.Object}})">
+            <summary>
+            Retrieves <see cref="!:Timeseries.Create&lt;T&gt;(IEnumerable&lt;ValueTuple&lt;Instant, T&gt;&gt;, string)"/>-method and caches both both methods for type <paramref name="t"/>.
+            </summary>
+            <param name="elements">The list of elements.</param>
+            <param name="key">The type of the keys.</param>
+            <param name="value">The type of the values.</param>
+        </member>
         <member name="T:Nordril.Collections.MethodCache.ListCache">
             <summary>
-            A cache of typed constructors for <see cref="T:System.Collections.Generic.List`1"/>. This is useful if you have value-level types (<see cref="T:System.Type"/>) and dynamically want to call the <see cref="T:System.Collections.Generic.List`1"/>-constructor with them as type argument.
-            This class uses dynamic method compilation to provide high-performance access to the constructor of <see cref="T:System.Collections.Generic.List`1"/>, avoiding the high, repeated runtime cost of reflection.
+            A cache of typed constructors for <see cref="T:Nordril.Functional.Data.FuncList`1"/>. This is useful if you have value-level types (<see cref="T:System.Type"/>) and dynamically want to call the <see cref="T:Nordril.Functional.Data.FuncList`1"/>-constructor with them as type argument.
+            This class uses dynamic method compilation to provide high-performance access to the constructor of <see cref="T:Nordril.Functional.Data.FuncList`1"/>, avoiding the high, repeated runtime cost of reflection.
             </summary>
         </member>
         <member name="M:Nordril.Collections.MethodCache.ListCache.#ctor(System.Int32)">

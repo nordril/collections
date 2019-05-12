@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Nordril.Collections
 {
@@ -75,6 +76,29 @@ namespace Nordril.Collections
                 else
                     Add(value, key);
             }
+        }
+
+        /// <inheritdoc />
+        IEnumerable<TLeft> IReadOnlyDictionary<TLeft, TRight>.Keys => to.Keys;
+
+        /// <inheritdoc />
+        IEnumerable<TRight> IReadOnlyDictionary<TLeft, TRight>.Values => from.Keys;
+
+        /// <summary>
+        /// Creates a new, empty instance.
+        /// </summary>
+        public Bijection()
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance from a collection of key-value-pairs.
+        /// </summary>
+        /// <param name="xs">The collection of key-value-pairs.</param>
+        public Bijection(IEnumerable<KeyValuePair<TLeft, TRight>> xs)
+        {
+            to = new Dictionary<TLeft, TRight>(xs);
+            from = new Dictionary<TRight, TLeft>(xs.Select(x => KeyValuePair.Create(x.Value, x.Key)));
         }
 
         /// <inheritdoc />
