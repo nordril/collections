@@ -44,7 +44,7 @@ namespace Nordril.Collections
         /// </summary>
         WasInserted,
         /// <summary>
-        /// The element was not present, but a new value was not cahced due to cache limitations.
+        /// The element was not present, but a new value was not cached due to cache limitations.
         /// </summary>
         WasMissingAndNotCached
     }

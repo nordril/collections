@@ -470,7 +470,7 @@
         </member>
         <member name="F:Nordril.Collections.CacheResult.WasMissingAndNotCached">
             <summary>
-            The element was not present, but a new value was not cahced due to cache limitations.
+            The element was not present, but a new value was not cached due to cache limitations.
             </summary>
         </member>
         <member name="T:Nordril.Collections.IPartialMatchSearchable`2">
