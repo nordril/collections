@@ -11,7 +11,7 @@
     <Copyright>Nordril Technologies</Copyright>
     <PackageLicenseUrl>https://www.apache.org/licenses/LICENSE-2.0.html</PackageLicenseUrl>
     <PackageIconUrl>https://nordrilnugeticons.blob.core.windows.net/nuget-icons/382bgwqc06gfdlhjgb6.png</PackageIconUrl>
-    <Version>3.2.0</Version>
+    <Version>4.0.0</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -24,8 +24,8 @@
 
   <ItemGroup>
     <PackageReference Include="NodaTime" Version="2.4.2" />
-    <PackageReference Include="Nordril.Base" Version="1.0.1" />
-    <PackageReference Include="Nordril.Functional" Version="8.8.0" />
+    <PackageReference Include="Nordril.Base" Version="1.1.0" />
+    <PackageReference Include="Nordril.Functional" Version="10.4.0" />
     <PackageReference Include="Nordril.TypeToolkit" Version="4.0.0" />
     <PackageReference Include="Sigil" Version="4.7.0" />
   </ItemGroup>
