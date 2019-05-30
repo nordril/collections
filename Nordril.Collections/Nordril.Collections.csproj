@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFrameworks>netcoreapp2.2;net472</TargetFrameworks>
     <LangVersion>latest</LangVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
@@ -23,11 +23,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NodaTime" Version="2.4.2" />
-    <PackageReference Include="Nordril.Base" Version="1.1.0" />
-    <PackageReference Include="Nordril.Functional" Version="10.4.0" />
-    <PackageReference Include="Nordril.TypeToolkit" Version="4.0.0" />
+    <PackageReference Include="NodaTime" Version="2.4.5" />
+    <PackageReference Include="Nordril.Base" Version="2.0.1" />
+    <PackageReference Include="Nordril.Functional" Version="13.0.0" />
+    <PackageReference Include="Nordril.TypeToolkit" Version="5.0.0" />
     <PackageReference Include="Sigil" Version="4.7.0" />
   </ItemGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netcoreapp2.2'">
+    <DefineConstants>NETCORE</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net472'">
+    <DefineConstants>NET472;NETFULL</DefineConstants>
+  </PropertyGroup>
 
 </Project>

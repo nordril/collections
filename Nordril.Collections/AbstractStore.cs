@@ -33,7 +33,14 @@ namespace Nordril.Collections
             Copier = copier;
             if (values == null)
                 values = new KeyValuePair<TKey, TValue>[0];
+#if NETCORE
             Store = new Dictionary<TKey, TValue>(values.Select(kv => new KeyValuePair<TKey, TValue>(kv.Key, copier(kv.Value))));
+#elif NETFULL
+            Store = new Dictionary<TKey, TValue>();
+
+            foreach (var x in values)
+                Store.Add(x.Key, copier(x.Value));
+#endif
         }
 
         /// <summary>
@@ -44,7 +51,14 @@ namespace Nordril.Collections
         protected AbstractStore(IEnumerable<(TKey, TValue)> values, Func<TValue, TValue> copier)
         {
             Copier = copier;
+#if NETCORE
             Store = new Dictionary<TKey, TValue>(values.Select(kv => new KeyValuePair<TKey, TValue>(kv.Item1, copier(kv.Item2))));
+#elif NETFULL
+            Store = new Dictionary<TKey, TValue>();
+
+            foreach (var x in values)
+                Store.Add(x.Item1, copier(x.Item2));
+#endif
         }
 
         /// <inheritdoc />

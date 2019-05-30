@@ -138,16 +138,16 @@ namespace Nordril.Collections.MethodCache
         }
 
         /// <summary>
-        /// Retrieves <see cref="Dictionary{TKey, TValue}"/>-constructor-method and caches both both methods for type <typeparamref name="T"/>.
+        /// Retrieves <see cref="Dictionary{TKey, TValue}"/>-constructor-method and caches both both methods for type <typeparamref name="TKey"/> and <typeparamref name="TValue"/>.
         /// </summary>
         /// <param name="elements">The list of elements.</param>
         /// <typeparam name="TKey">The type of the keys.</typeparam>
         /// <typeparam name="TValue">The type of the values.</typeparam>
-        public IDictionary<TKey, TValue> RetrieveOrCacheCreate<TKey, TValue>(IEnumerable<(TKey, TValue)> elements, string unit)
+        public IDictionary<TKey, TValue> RetrieveOrCacheCreate<TKey, TValue>(IEnumerable<(TKey, TValue)> elements)
             => (Dictionary<TKey, TValue>)RetrieveOrCacheCreate(typeof(TKey), typeof(TValue), elements.Select(e => ((object)e.Item1, (object)e.Item2)));
 
         /// <summary>
-        /// Retrieves <see cref="Timeseries.Create{T}(IEnumerable{ValueTuple{Instant, T}}, string)"/>-method and caches both both methods for type <paramref name="t"/>.
+        /// Retrieves <see cref="Dictionary{TKey, TValue}"/>-constructor-method and caches both both methods for type <paramref name="key"/> and <paramref name="value"/>.
         /// </summary>
         /// <param name="elements">The list of elements.</param>
         /// <param name="key">The type of the keys.</param>
