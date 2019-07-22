@@ -1,4 +1,5 @@
-﻿using Nordril.Functional.Data;
+﻿using Nordril.Functional;
+using Nordril.Functional.Data;
 using Nordril.TypeToolkit;
 using Sigil;
 using System;
@@ -34,7 +35,7 @@ namespace Nordril.Collections.MethodCache
              * Generated code:
              * Type parameters in brackets denote template parameters.
              * 
-             * Dictionary<TKey, TValue> CreateDynamic[Tkey, TValue](IEnumerable<(object, object)> xs)
+             * FuncDictionary<TKey, TValue> CreateDynamic[Tkey, TValue](IEnumerable<(object, object)> xs)
              * {
              *    List<KeyValuePair<TKey, TValue>> list = new List<KeyValuePair<TKey, TValue>>();
              *    
@@ -43,7 +44,8 @@ namespace Nordril.Collections.MethodCache
              *       list.Add(new KeyValuePair<TKey, TValue>((TKey)x.Item1, (TValue)x.Item2));
              *    }
              *    
-             *    return new FuncDictionary<TKey, TValue>(list);
+             *    var keyComp = FuncComparer.Make<TKey>();
+             *    return new FuncDictionary<TKey, TValue>(keyComp, list);
              * }
              */
 
@@ -53,7 +55,7 @@ namespace Nordril.Collections.MethodCache
             var enumType = typeof(IEnumerable<>).MakeGenericType(kvType);
             var listType = typeof(List<>).MakeGenericType(kvType);
 
-            var dictConstr = dictType.GetConstructor(new Type[] { enumType });
+            var dictConstr = dictType.GetConstructor(new Type[] { typeof(IComparer<>).MakeGenericType(tkey), enumType });
 
             var getEnumeratorMethod = typeof(IEnumerable<(object, object)>).GetMethods().First(me => me.Name == nameof(IEnumerable<object>.GetEnumerator) && me.GetParameters().Length == 0);
             var moveNextMethod = typeof(IEnumerator).GetMethod(nameof(IEnumerator.MoveNext));
@@ -64,6 +66,8 @@ namespace Nordril.Collections.MethodCache
             var fieldItem2 = tupleObjectType.GetField(nameof(ValueTuple<object, object>.Item2));
             var listConstr = listType.GetConstructor(new Type[0]);
             var kvConstr = kvType.GetConstructor(new Type[] { tkey, tvalue });
+
+            var funcComparerMake = typeof(FuncComparer).GetMethod(nameof(FuncComparer.Make), BindingFlags.Static | BindingFlags.Public | BindingFlags.InvokeMethod).MakeGenericMethod(tkey);
 
             var generator = Emit<Func<IEnumerable<(object, object)>, object>>.NewDynamicMethod("CreateDynamic");
 
@@ -120,8 +124,10 @@ namespace Nordril.Collections.MethodCache
 
             //Return
             generator.MarkLabel(endLbl);
-            generator.LoadLocal(locList); //[] -> [list:stack]
-            generator.NewObject(dictConstr); //[list:stack] -> [newdict:stack]
+
+            generator.Call(funcComparerMake); //[] -> [keyComp:stack]
+            generator.LoadLocal(locList); //[keyComp:stack] -> [keyComp:stack, list:stack]
+            generator.NewObject(dictConstr); //[keyComp:stack, list:stack] -> [newdict:stack]
             generator.Box(dictType); //[newdict:stack] -> [newdict:heap]
             generator.Return();
 
@@ -160,4 +166,23 @@ namespace Nordril.Collections.MethodCache
             return method(elements);
         }
     }
+
+    /*public class XXX
+    {
+        FuncDictionary<TKey, TValue> CreateDynamic<TKey, TValue>(IEnumerable<(object, object)> xs)
+            where TKey : IComparable<TKey>
+        {
+            List<KeyValuePair<TKey, TValue>> list = new List<KeyValuePair<TKey, TValue>>();
+
+            foreach (var x in xs)
+            {
+                list.Add(new KeyValuePair<TKey, TValue>((TKey)x.Item1, (TValue)x.Item2));
+            }
+
+            var keyComp = new FuncComparer<TKey>((x, y) => x.CompareTo(y), x => x.GetHashCode());
+            return new FuncDictionary<TKey, TValue>(keyComp, list);
+
+        }
+    }*/
 }
+
