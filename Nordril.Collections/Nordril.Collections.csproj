@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.2;net472</TargetFrameworks>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <LangVersion>latest</LangVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
@@ -11,7 +11,7 @@
     <Copyright>Nordril Technologies</Copyright>
     <PackageLicenseUrl>https://www.apache.org/licenses/LICENSE-2.0.html</PackageLicenseUrl>
     <PackageIconUrl>https://nordrilnugeticons.blob.core.windows.net/nuget-icons/382bgwqc06gfdlhjgb6.png</PackageIconUrl>
-    <Version>5.1.2</Version>
+    <Version>7.0.0</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -24,13 +24,13 @@
 
   <ItemGroup>
     <PackageReference Include="NodaTime" Version="2.4.7" />
-    <PackageReference Include="Nordril.Base" Version="2.1.0" />
-    <PackageReference Include="Nordril.Functional" Version="17.4.0" />
-    <PackageReference Include="Nordril.TypeToolkit" Version="5.0.0" />
-    <PackageReference Include="Sigil" Version="4.7.0" />
+    <PackageReference Include="Nordril.Base" Version="3.0.0" />
+    <PackageReference Include="Nordril.Functional" Version="19.0.0" />
+    <PackageReference Include="Nordril.TypeToolkit" Version="5.2.0" />
+    <PackageReference Include="Sigil" Version="5.0.0" />
   </ItemGroup>
 
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'netcoreapp2.2'">
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.1'">
     <DefineConstants>NETCORE</DefineConstants>
   </PropertyGroup>
 
