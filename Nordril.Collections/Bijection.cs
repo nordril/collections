@@ -11,6 +11,7 @@ namespace Nordril.Collections
     /// </summary>
     /// <typeparam name="TLeft">The type of the left keys.</typeparam>
     /// <typeparam name="TRight">The type of the right keys.</typeparam>
+    [Obsolete("Use Nordril.Functional.Algebra.IOneToOneRelation instead.")]
     public class Bijection<TLeft, TRight> : IBijection<TLeft, TRight>
     {
         private IDictionary<TLeft, TRight> to = new Dictionary<TLeft, TRight>();

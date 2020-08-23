@@ -9,6 +9,7 @@ namespace Nordril.Collections
     /// </summary>
     /// <typeparam name="TLeft">The left value.</typeparam>
     /// <typeparam name="TRight">The right value.</typeparam>
+    [Obsolete("Use Nordril.Functional.Algebra.IOneToOneRelation instead.")]
     public interface IBijection<TLeft, TRight> : IDictionary<TLeft, TRight>, IReadOnlyBijection<TLeft, TRight>
     {
         /// <summary>
