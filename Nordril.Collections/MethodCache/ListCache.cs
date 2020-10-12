@@ -112,6 +112,16 @@ namespace Nordril.Collections.MethodCache
         }
 
         /// <summary>
+        /// Retrieves the <see cref="FuncList{T}"/>-constructor, specialized to <paramref name="t"/>.
+        /// </summary>
+        /// <param name="t">The type of the contents.</param>
+        public Func<IEnumerable<object>, object> RetrieveOrCacheCreate<T>(Type t)
+        {
+            RetrieveOrCache(t, () => makeCreateMethod(t), out var m);
+            return m;
+        }
+
+        /// <summary>
         /// Retrieves the <see cref="FuncList{T}"/>-constructor and caches itfor type <typeparamref name="T"/>.
         /// </summary>
         /// <param name="elements">The list of elements.</param>

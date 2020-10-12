@@ -139,6 +139,25 @@ namespace Nordril.Collections.Tests.MethodCache
         }
 
         [Fact]
+        public static void Either8FuncCreation()
+        {
+            var cache = new EitherCache(20);
+            var expected = new Either<int, List<bool>, FuncList<string>, float, bool, short, byte, Type>(Either.One(14));
+            var actualConstructor = cache.RetrieveOrCacheCreate(new List<Type> { typeof(int), typeof(List<bool>), typeof(FuncList<string>), typeof(float), typeof(bool), typeof(short), typeof(byte), typeof(Type) });
+
+            var actual = (Either<int, List<bool>, FuncList<string>, float, bool, short, byte, Type>)actualConstructor(0, 14);
+
+            Assert.Equal(expected, actual);
+
+            expected = new Either<int, List<bool>, FuncList<string>, float, bool, short, byte, Type>(Either.Eight(typeof(int)));
+            actual = (Either<int, List<bool>, FuncList<string>, float, bool, short, byte, Type>)actualConstructor(7, typeof(int));
+
+            Assert.Equal(expected, actual);
+
+            Assert.Throws<IndexOutOfRangeException>(() => actualConstructor(8, 4));
+        }
+
+        [Fact]
         public static void ErrorTest()
         {
             var cache = new EitherCache(20);

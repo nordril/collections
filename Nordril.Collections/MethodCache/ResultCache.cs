@@ -80,6 +80,16 @@ namespace Nordril.Collections.MethodCache
         }
 
         /// <summary>
+        /// Retrieves the <see cref="Result.WithErrors{T}(IEnumerable{Error}, ResultClass)"/>- <see cref="Result.Ok{T}(T)"/>-constructors, specialized to <paramref name="t"/>
+        /// </summary>
+        /// <param name="t">The type of the contents.</param>
+        public (Func<IEnumerable<Error>, ResultClass, object>, Func<object, object>)  RetrieveOrCacheConstructors(Type t)
+        {
+            RetrieveOrCache(t, () => (makeWithErrorsMethod(t), makeOkMethod(t)), out var methods);
+            return methods;
+        }
+
+        /// <summary>
         /// Retrieves <see cref="Result.Ok{T}(T)"/>-method and caches both both methods for type <typeparamref name="T"/>.
         /// </summary>
         /// <param name="errors">The list of errors.</param>

@@ -138,6 +138,17 @@ namespace Nordril.Collections.MethodCache
         }
 
         /// <summary>
+        /// Retrieves <see cref="Dictionary{TKey, TValue}"/>-constructor, specialized to <paramref name="key"/> and <paramref name="value"/>.
+        /// </summary>
+        /// <param name="key">The type of the keys.</param>
+        /// <param name="value">The type of the values.</param>
+        public Func<IEnumerable<(object, object)>, object> RetrieveOrCacheCreate(Type key, Type value)
+        {
+            RetrieveOrCache((key, value), () => makeCreateMethod(key, value), out var method);
+            return method;
+        }
+
+        /// <summary>
         /// Retrieves <see cref="Dictionary{TKey, TValue}"/>-constructor-method and caches both both methods for type <typeparamref name="TKey"/> and <typeparamref name="TValue"/>.
         /// </summary>
         /// <param name="elements">The list of elements.</param>

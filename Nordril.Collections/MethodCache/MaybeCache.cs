@@ -78,6 +78,16 @@ namespace Nordril.Collections.MethodCache
         }
 
         /// <summary>
+        /// Retrieves the <see cref="Maybe.Nothing{T}"/>- and <see cref="Maybe.Just{T}(T)"/>-constructors, specialized to <paramref name="t"/>.
+        /// </summary>
+        /// <param name="t">The type of the contents.</param>
+        public (Func<object> nothing, Func<object, object> just) RetrieveOrCacheConstructors(Type t)
+        {
+            RetrieveOrCache(t, () => (makeNothingMethod(t), makeJustMethod(t)), out var methods);
+            return methods;
+        }
+
+        /// <summary>
         /// Retrieves <see cref="Maybe.Nothing{T}"/>-method and caches both <see cref="Maybe.Nothing{T}"/> and <see cref="Maybe.Just{T}(T)"/> for type <typeparamref name="T"/>.
         /// </summary>
         /// <typeparam name="T">The type of the contents.</typeparam>

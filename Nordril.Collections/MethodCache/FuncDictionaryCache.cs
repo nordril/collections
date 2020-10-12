@@ -146,6 +146,17 @@ namespace Nordril.Collections.MethodCache
         }
 
         /// <summary>
+        /// Retrieves <see cref="FuncDictionary{TKey, TValue}"/>-constructor, specialized to <paramref name="key"/> and <paramref name="value"/>.
+        /// </summary>
+        /// <param name="key">The type of the keys.</param>
+        /// <param name="value">The type of the values.</param>
+        public Func<IEnumerable<(object, object)>, object> RetrieveOrCacheCreate(Type key, Type value)
+        {
+            RetrieveOrCache((key, value), () => makeCreateMethod(key, value), out var method);
+            return method;
+        }
+
+        /// <summary>
         /// Retrieves <see cref="FuncDictionary{TKey, TValue}"/>-constructor-method and caches both both methods for type <typeparamref name="TKey"/> and <typeparamref name="TValue"/>.
         /// </summary>
         /// <param name="elements">The list of elements.</param>
@@ -166,23 +177,5 @@ namespace Nordril.Collections.MethodCache
             return method(elements);
         }
     }
-
-    /*public class XXX
-    {
-        FuncDictionary<TKey, TValue> CreateDynamic<TKey, TValue>(IEnumerable<(object, object)> xs)
-            where TKey : IComparable<TKey>
-        {
-            List<KeyValuePair<TKey, TValue>> list = new List<KeyValuePair<TKey, TValue>>();
-
-            foreach (var x in xs)
-            {
-                list.Add(new KeyValuePair<TKey, TValue>((TKey)x.Item1, (TValue)x.Item2));
-            }
-
-            var keyComp = new FuncComparer<TKey>((x, y) => x.CompareTo(y), x => x.GetHashCode());
-            return new FuncDictionary<TKey, TValue>(keyComp, list);
-
-        }
-    }*/
 }
 

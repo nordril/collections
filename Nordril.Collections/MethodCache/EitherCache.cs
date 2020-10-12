@@ -45,7 +45,7 @@ namespace Nordril.Collections.MethodCache
              *       case 5: return new Either<T1,...Tn>(new Either6<T6>((T6)element));
              *       case 6: return new Either<T1,...Tn>(new Either7<T7>((T7)element));
              *       case 7: return new Either<T1,...Tn>(new Either8<T8>((T8)element));
-             *       default: throw new ArgumentException();
+             *       default: throw new IndexOutOfRangeException();
              *    }
              * }
              */
@@ -96,7 +96,7 @@ namespace Nordril.Collections.MethodCache
             }
 
             generator.MarkLabel(defaultLabel);
-            generator.NewObject<ArgumentException>();
+            generator.NewObject<IndexOutOfRangeException>();
             generator.Throw();
 
             var del = generator.CreateDelegate();
@@ -110,6 +110,23 @@ namespace Nordril.Collections.MethodCache
         /// <param name="cacheSize">The maximum cache size.</param>
         public EitherCache(int cacheSize) : base(cacheSize)
         {
+        }
+
+        /// <summary>
+        /// Retrieves the constructor of the 1-8-element <see cref="Either{TLeft, TRight}"/> based on the type parameters of <paramref name="types"/>, and taking a raw object. See <see cref="RetrieveOrCacheCreate(IList{Type}, int, object)"/> for exceptions th
+        /// </summary>
+        /// <param name="types">The types of the contents.</param>
+        /// <exception cref="ArgumentException">If <paramref name="types"/>.</exception>
+        public Func<int, object, object> RetrieveOrCacheCreate(IList<Type> types)
+        {
+            if (types is null)
+                throw new ArgumentException();
+
+            if (types.Count > 8)
+                throw new ArgumentException($"Too many type parameters were specified ({types.Count}). The maximum is 8.");
+
+            RetrieveOrCache(types, () => makeCreateMethod(types), out var method);
+            return method;
         }
 
         /// <summary>
