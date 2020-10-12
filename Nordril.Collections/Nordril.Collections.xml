@@ -692,6 +692,28 @@
             <param name="key">The type of the keys.</param>
             <param name="value">The type of the values.</param>
         </member>
+        <member name="T:Nordril.Collections.MethodCache.EitherCache">
+            <summary>
+            A cache of typed constructors for the <see cref="T:Nordril.Functional.Data.Either`2"/>-family (from 1 to 8 parameters). This is useful if you have value-level types (<see cref="T:System.Type"/>) and dynamically want to call the either-constructor with them as type argument.
+            This class uses dynamic method compilation to provide high-performance access to the constructors of <see cref="T:Nordril.Functional.Data.Either`2"/>, avoiding the high, repeated runtime cost of reflection.
+            </summary>
+        </member>
+        <member name="M:Nordril.Collections.MethodCache.EitherCache.#ctor(System.Int32)">
+            <summary>
+            Creates a new cache.
+            </summary>
+            <param name="cacheSize">The maximum cache size.</param>
+        </member>
+        <member name="M:Nordril.Collections.MethodCache.EitherCache.RetrieveOrCacheCreate(System.Collections.Generic.IList{System.Type},System.Int32,System.Object)">
+            <summary>
+            Creates a 1-8-element <see cref="T:Nordril.Functional.Data.Either`2"/> based on the type parameters of <paramref name="types"/>, containing the element <paramref name="element"/> in position <paramref name="index"/>.
+            </summary>
+            <param name="types">The types of the contents.</param>
+            <param name="index">The 0-based index of the element, meaning which component of the resultant Either has a value..</param>
+            <param name="element">The contents.</param>
+            <exception cref="T:System.ArgumentException">If <paramref name="types"/> is null or if too many types were specified.</exception>
+            <exception cref="T:System.IndexOutOfRangeException">If <paramref name="index"/> lay outside the bounds of <paramref name="types"/>.</exception>
+        </member>
         <member name="T:Nordril.Collections.MethodCache.FuncDictionaryCache">
             <summary>
             A cache of typed constructors for <see cref="T:Nordril.Functional.Data.FuncDictionary`2"/>. This is useful if you have value-level types (<see cref="T:System.Type"/>) and dynamically want to call the <see cref="T:Nordril.Functional.Data.FuncDictionary`2"/>-constructor with them as type argument.

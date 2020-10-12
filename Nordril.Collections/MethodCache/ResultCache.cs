@@ -1,6 +1,8 @@
 ﻿using Nordril.Base;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Reflection.Emit;
 
 namespace Nordril.Collections.MethodCache
@@ -11,6 +13,10 @@ namespace Nordril.Collections.MethodCache
     /// </summary>
     public class ResultCache : DictionaryBasedCache<Type, (Func<IEnumerable<Error>, ResultClass, object>, Func<object, object>)>
     {
+        private static readonly MethodInfo okMethod = typeof(Result).GetMethods()
+            .Where(m => m.Name == "Ok" && m.GetParameters().Length == 1)
+            .Single();
+
         private static readonly Func<Type, Func<IEnumerable<Error>, ResultClass, object>> makeWithErrorsMethod = t =>
         {
             /*
@@ -58,7 +64,7 @@ namespace Nordril.Collections.MethodCache
 
             generator.Emit(OpCodes.Ldarg_0); //[] -> [x:stack]
             generator.Emit(OpCodes.Unbox_Any, t); //[x:stack -> x:stack|type:t]
-            generator.EmitCall(OpCodes.Call, typeof(Result).GetMethod(nameof(Result.Ok)).MakeGenericMethod(t), null); //[x:stack] -> [ret:stack]
+            generator.EmitCall(OpCodes.Call, okMethod.MakeGenericMethod(t), null); //[x:stack] -> [ret:stack]
             generator.Emit(OpCodes.Box, typeof(Result<>).MakeGenericType(t)); //[ret:stack] -> [ret:heap]
             generator.Emit(OpCodes.Ret); //[ret:heap] -> []
 

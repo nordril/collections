@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Nordril.Collections.Tests.MethodCache
 {
-    public class MaybeCacheTests
+    public static class MaybeCacheTests
     {
         public static IEnumerable<object[]> IntMaybeCreationData()
         {
