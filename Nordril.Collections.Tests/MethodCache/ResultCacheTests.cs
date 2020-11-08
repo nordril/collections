@@ -1,6 +1,6 @@
-﻿using Nordril.Base;
-using Nordril.Collections.MethodCache;
+﻿using Nordril.Collections.MethodCache;
 using Nordril.Functional;
+using Nordril.Functional.Results;
 using System;
 using System.Collections.Generic;
 using System.Linq;

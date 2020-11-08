@@ -12,6 +12,7 @@ namespace Nordril.Collections
     /// </summary>
     /// <typeparam name="TKey">The key of the stored elements.</typeparam>
     /// <typeparam name="TValue">The elements which are stored.</typeparam>
+    [Obsolete]
     public abstract class AbstractBijectiveStore<TKey, TValue> : IBijectiveStore<TKey, TValue>
     {
         /// <summary>

@@ -64,10 +64,10 @@ namespace Nordril.Collections.MethodCache
             var addMethod = listType.GetMethod(nameof(List<object>.Add));
             var fieldItem1 = tupleObjectType.GetField(nameof(ValueTuple<object, object>.Item1));
             var fieldItem2 = tupleObjectType.GetField(nameof(ValueTuple<object, object>.Item2));
-            var listConstr = listType.GetConstructor(new Type[0]);
+            var listConstr = listType.GetConstructor(Array.Empty<Type>());
             var kvConstr = kvType.GetConstructor(new Type[] { tkey, tvalue });
 
-            var funcComparerMake = typeof(FuncComparer).GetMethod(nameof(FuncComparer.Make), BindingFlags.Static | BindingFlags.Public | BindingFlags.InvokeMethod).MakeGenericMethod(tkey);
+            var funcComparerMake = typeof(FuncComparer).GetMethods(BindingFlags.Static | BindingFlags.Public | BindingFlags.InvokeMethod).Single(m => m.Name == nameof(FuncComparer.Make) && m.GetParameters().Length == 0).MakeGenericMethod(tkey);
 
             var generator = Emit<Func<IEnumerable<(object, object)>, object>>.NewDynamicMethod("CreateDynamic");
 

@@ -840,8 +840,8 @@
         </member>
         <member name="T:Nordril.Collections.MethodCache.ResultCache">
             <summary>
-            A cache of typed constructors for <see cref="T:Nordril.Base.Result`1"/>. This is useful if you have value-level types (<see cref="T:System.Type"/>) and dynamically want to call <see cref="M:Nordril.Base.Result.Ok``1(``0)"/>/<see cref="M:Nordril.Base.Result.WithErrors``1(System.Collections.Generic.IEnumerable{Nordril.Base.Error},Nordril.Base.ResultClass)"/> with them as type argument.
-            This class uses dynamic method compilation to provide high-performance access to the constructors of <see cref="T:Nordril.Base.Result"/>, avoiding the high, repeated runtime cost of reflection.
+            A cache of typed constructors for <see cref="T:Nordril.Functional.Results.Result`1"/>. This is useful if you have value-level types (<see cref="T:System.Type"/>) and dynamically want to call <see cref="M:Nordril.Functional.Results.Result.Ok``1(``0)"/>/<see cref="M:Nordril.Functional.Results.Result.WithErrors``1(System.Collections.Generic.IEnumerable{Nordril.Functional.Error},Nordril.Functional.Results.ResultClass)"/> with them as type argument.
+            This class uses dynamic method compilation to provide high-performance access to the constructors of <see cref="T:Nordril.Functional.Results.Result"/>, avoiding the high, repeated runtime cost of reflection.
             </summary>
         </member>
         <member name="M:Nordril.Collections.MethodCache.ResultCache.#ctor(System.Int32)">
@@ -852,35 +852,35 @@
         </member>
         <member name="M:Nordril.Collections.MethodCache.ResultCache.RetrieveOrCacheConstructors(System.Type)">
             <summary>
-            Retrieves the <see cref="M:Nordril.Base.Result.WithErrors``1(System.Collections.Generic.IEnumerable{Nordril.Base.Error},Nordril.Base.ResultClass)"/>- <see cref="M:Nordril.Base.Result.Ok``1(``0)"/>-constructors, specialized to <paramref name="t"/>
+            Retrieves the <see cref="M:Nordril.Functional.Results.Result.WithErrors``1(System.Collections.Generic.IEnumerable{Nordril.Functional.Error},Nordril.Functional.Results.ResultClass)"/>- <see cref="M:Nordril.Functional.Results.Result.Ok``1(``0)"/>-constructors, specialized to <paramref name="t"/>
             </summary>
             <param name="t">The type of the contents.</param>
         </member>
-        <member name="M:Nordril.Collections.MethodCache.ResultCache.RetrieveOrCacheWithErrors``1(System.Collections.Generic.IEnumerable{Nordril.Base.Error},Nordril.Base.ResultClass)">
+        <member name="M:Nordril.Collections.MethodCache.ResultCache.RetrieveOrCacheWithErrors``1(System.Collections.Generic.IEnumerable{Nordril.Functional.Error},Nordril.Functional.Results.ResultClass)">
             <summary>
-            Retrieves <see cref="M:Nordril.Base.Result.Ok``1(``0)"/>-method and caches both both methods for type <typeparamref name="T"/>.
+            Retrieves <see cref="M:Nordril.Functional.Results.Result.Ok``1(``0)"/>-method and caches both both methods for type <typeparamref name="T"/>.
             </summary>
             <param name="errors">The list of errors.</param>
-            <param name="rc">The <see cref="T:Nordril.Base.ResultClass"/>.</param>
+            <param name="rc">The <see cref="T:Nordril.Functional.Results.ResultClass"/>.</param>
             <typeparam name="T">The type of the contents.</typeparam>
         </member>
         <member name="M:Nordril.Collections.MethodCache.ResultCache.RetrieveOrCacheOk``1(``0)">
             <summary>
-            Retrieves <see cref="M:Nordril.Base.Result.Ok``1(``0)"/>-method and caches both methods for type <typeparamref name="T"/>.
+            Retrieves <see cref="M:Nordril.Functional.Results.Result.Ok``1(``0)"/>-method and caches both methods for type <typeparamref name="T"/>.
             </summary>
             <typeparam name="T">The type of the contents.</typeparam>
         </member>
-        <member name="M:Nordril.Collections.MethodCache.ResultCache.RetrieveOrCacheWithErrors(System.Type,System.Collections.Generic.IEnumerable{Nordril.Base.Error},Nordril.Base.ResultClass)">
+        <member name="M:Nordril.Collections.MethodCache.ResultCache.RetrieveOrCacheWithErrors(System.Type,System.Collections.Generic.IEnumerable{Nordril.Functional.Error},Nordril.Functional.Results.ResultClass)">
             <summary>
-            Retrieves <see cref="M:Nordril.Base.Result.WithErrors``1(System.Collections.Generic.IEnumerable{Nordril.Base.Error},Nordril.Base.ResultClass)"/>-method and caches both both methods for type <paramref name="t"/>.
+            Retrieves <see cref="M:Nordril.Functional.Results.Result.WithErrors``1(System.Collections.Generic.IEnumerable{Nordril.Functional.Error},Nordril.Functional.Results.ResultClass)"/>-method and caches both both methods for type <paramref name="t"/>.
             </summary>
             <param name="errors">The list of errors.</param>
-            <param name="rc">The <see cref="T:Nordril.Base.ResultClass"/>.</param>
+            <param name="rc">The <see cref="T:Nordril.Functional.Results.ResultClass"/>.</param>
             <param name="t">The type of the contents.</param>
         </member>
         <member name="M:Nordril.Collections.MethodCache.ResultCache.RetrieveOrCacheOk(System.Type,System.Object)">
             <summary>
-            Retrieves <see cref="M:Nordril.Base.Result.WithErrors``1(System.Collections.Generic.IEnumerable{Nordril.Base.Error},Nordril.Base.ResultClass)"/>-method and caches both both methods for type <paramref name="t"/>.
+            Retrieves <see cref="M:Nordril.Functional.Results.Result.WithErrors``1(System.Collections.Generic.IEnumerable{Nordril.Functional.Error},Nordril.Functional.Results.ResultClass)"/>-method and caches both both methods for type <paramref name="t"/>.
             </summary>
             <param name="value">The result.</param>
             <param name="t">The type of the contents.</param>
