@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Nordril.Collections.Tests
 {
-    public class DictionaryExtensionsTests
+    public sealed class DictionaryExtensionsTests
     {
         public static IEnumerable<object[]> UpdateData()
         {

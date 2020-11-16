@@ -10,10 +10,11 @@
     <Authors>Nordril Technologies</Authors>
     <Copyright>Nordril Technologies</Copyright>
     <PackageLicenseUrl></PackageLicenseUrl>
-    <PackageIconUrl>https://nordrilnugeticons.blob.core.windows.net/nuget-icons/382bgwqc06gfdlhjgb6.png</PackageIconUrl>
-    <Version>7.3.0</Version>
+    <PackageIconUrl></PackageIconUrl>
+    <Version>7.4.0</Version>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <AssemblyVersion>7.3.0.0</AssemblyVersion>
+    <AssemblyVersion>7.4.0.0</AssemblyVersion>
+    <PackageIcon>382bgwqc06gfdlhjgb6.png</PackageIcon>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -26,9 +27,16 @@
 
   <ItemGroup>
     <PackageReference Include="NodaTime" Version="3.0.3" />
-    <PackageReference Include="Nordril.Functional" Version="25.0.0" />
+    <PackageReference Include="Nordril.Functional" Version="25.2.0" />
     <PackageReference Include="Nordril.TypeToolkit" Version="5.2.0" />
     <PackageReference Include="Sigil" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\382bgwqc06gfdlhjgb6.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.1'">

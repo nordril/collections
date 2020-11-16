@@ -12,7 +12,7 @@ namespace Nordril.Collections
     /// </summary>
     /// <typeparam name="TKey">The key of the stored elements.</typeparam>
     /// <typeparam name="TValue">The elements which are stored.</typeparam>
-    [Obsolete]
+    [Obsolete("Use Nordril.Functional.Algebra.IOneToOneRelation instead.")]
     public abstract class AbstractBijectiveStore<TKey, TValue> : IBijectiveStore<TKey, TValue>
     {
         /// <summary>
@@ -34,7 +34,7 @@ namespace Nordril.Collections
         {
             Copier = copier;
             if (values == null)
-                values = new KeyValuePair<TKey, TValue>[0];
+                values = Array.Empty<KeyValuePair<TKey, TValue>>();
             Store = new Bijection<TKey, TValue>(values.Select(kv => new KeyValuePair<TKey, TValue>(kv.Key, copier(kv.Value))));
         }
 

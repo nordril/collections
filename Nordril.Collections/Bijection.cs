@@ -14,8 +14,8 @@ namespace Nordril.Collections
     [Obsolete("Use Nordril.Functional.Algebra.IOneToOneRelation instead.")]
     public class Bijection<TLeft, TRight> : IBijection<TLeft, TRight>
     {
-        private IDictionary<TLeft, TRight> to = new Dictionary<TLeft, TRight>();
-        private IDictionary<TRight, TLeft> from = new Dictionary<TRight, TLeft>();
+        private readonly IDictionary<TLeft, TRight> to = new Dictionary<TLeft, TRight>();
+        private readonly IDictionary<TRight, TLeft> from = new Dictionary<TRight, TLeft>();
 
         /// <inheritdoc />
         public TRight this[TLeft key]
@@ -25,7 +25,7 @@ namespace Nordril.Collections
             {
 
                 var leftPresent = to.TryGetValue(key, out var right);
-                var rightPresent = from.TryGetValue(value, out var left);
+                var rightPresent = from.ContainsKey(value);
 
                 //both are present already -> fail if they aren't paired, NO-OP otherwise.
                 if (leftPresent && rightPresent)
@@ -55,13 +55,13 @@ namespace Nordril.Collections
             set
             {
 
-                var leftPresent = to.TryGetValue(value, out var right);
+                var leftPresent = to.ContainsKey(value);
                 var rightPresent = from.TryGetValue(key, out var left);
 
                 //both are present already -> fail if they aren't paired, NO-OP otherwise.
                 if (leftPresent && rightPresent)
                 {
-                    if (!right.Equals(value))
+                    if (!left.Equals(value))
                         throw new KeyAlreadyPresentException(key.ToString());
                 }
                 //only the right is present -> overwrite the left.

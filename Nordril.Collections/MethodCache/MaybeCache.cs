@@ -22,7 +22,7 @@ namespace Nordril.Collections.MethodCache
              * }
              */
 
-            var m = new DynamicMethod("NothingDynamic", typeof(object), new Type[0]);
+            var m = new DynamicMethod("NothingDynamic", typeof(object), Array.Empty<Type>());
 
             var generator = m.GetILGenerator();
 
@@ -30,7 +30,7 @@ namespace Nordril.Collections.MethodCache
             generator.DeclareLocal(typeof(object));
 
 #if NETCORE
-            var nothing = typeof(Maybe).GetMethod(nameof(Maybe.Nothing), 1, new Type[0]).MakeGenericMethod(t);
+            var nothing = typeof(Maybe).GetMethod(nameof(Maybe.Nothing), 1, Array.Empty<Type>()).MakeGenericMethod(t);
 #elif NETFULL
             var nothing = typeof(Maybe).GetMethod(nameof(Maybe.Nothing)).MakeGenericMethod(t);
 #endif
