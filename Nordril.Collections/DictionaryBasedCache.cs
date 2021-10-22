@@ -124,11 +124,8 @@ namespace Nordril.Collections
                     var keyToRemove = cacheRetrievalHistory[cacheRetrievalHistory.Count - 1];
                     cacheRetrievalHistory.RemoveAt(cacheRetrievalHistory.Count - 1);
                     cachePositions.Remove(keyToRemove);
-#if NETCORE
+
                     dict.Remove(keyToRemove, out var _);
-#elif NETFULL
-                    dict.TryRemove(keyToRemove, out var _);
-#endif
 
                     cacheRetrievalHistory.Insert(0, key);
                     cachePositions.Add(key, 0);

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFrameworks>netcoreapp3.1;net5.0</TargetFrameworks>
     <LangVersion>latest</LangVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
@@ -11,10 +11,11 @@
     <Copyright>Nordril Technologies</Copyright>
     <PackageLicenseUrl></PackageLicenseUrl>
     <PackageIconUrl></PackageIconUrl>
-    <Version>7.4.0</Version>
+    <Version>8</Version>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <AssemblyVersion>7.4.0.0</AssemblyVersion>
+    <AssemblyVersion>9.0.0.0</AssemblyVersion>
     <PackageIcon>382bgwqc06gfdlhjgb6.png</PackageIcon>
+    <FileVersion>9.0.0.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -26,8 +27,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NodaTime" Version="3.0.3" />
-    <PackageReference Include="Nordril.Functional" Version="25.2.0" />
+    <PackageReference Include="NodaTime" Version="3.0.7" />
+    <PackageReference Include="Nordril.Functional" Version="26.0.0" />
     <PackageReference Include="Nordril.TypeToolkit" Version="5.2.0" />
     <PackageReference Include="Sigil" Version="5.0.0" />
   </ItemGroup>
@@ -39,12 +40,12 @@
     </None>
   </ItemGroup>
 
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.1'">
+  <!--PropertyGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.1'">
     <DefineConstants>NETCORE</DefineConstants>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'net472'">
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net5.0'">
     <DefineConstants>NET472;NETFULL</DefineConstants>
-  </PropertyGroup>
+  </PropertyGroup-->
 
 </Project>

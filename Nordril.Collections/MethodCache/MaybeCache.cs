@@ -29,11 +29,7 @@ namespace Nordril.Collections.MethodCache
             //declare a local for the return of the call
             generator.DeclareLocal(typeof(object));
 
-#if NETCORE
             var nothing = typeof(Maybe).GetMethod(nameof(Maybe.Nothing), 1, Array.Empty<Type>()).MakeGenericMethod(t);
-#elif NETFULL
-            var nothing = typeof(Maybe).GetMethod(nameof(Maybe.Nothing)).MakeGenericMethod(t);
-#endif
 
             generator.EmitCall(OpCodes.Call, nothing, null); //[] ->[ret:stack]
             generator.Emit(OpCodes.Box, typeof(Maybe<>).MakeGenericType(t)); //[ret:stack] -> [ret:heap]

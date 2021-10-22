@@ -98,20 +98,8 @@ namespace Nordril.Collections
         /// <param name="xs">The collection of key-value-pairs.</param>
         public Bijection(IEnumerable<KeyValuePair<TLeft, TRight>> xs)
         {
-#if NETCORE
             to = new Dictionary<TLeft, TRight>(xs);
             from = new Dictionary<TRight, TLeft>(xs.Select(x => KeyValuePair.Create(x.Value, x.Key)));
-#elif NETFULL
-            to = new Dictionary<TLeft, TRight>();
-
-            foreach (var x in xs)
-                to.Add(x);
-
-            from = new Dictionary<TRight, TLeft>();
-
-            foreach (var x in xs)
-                from.Add(new KeyValuePair<TRight, TLeft>(x.Value, x.Key));
-#endif
         }
 
         /// <inheritdoc />
